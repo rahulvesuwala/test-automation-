@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { Browser } from '@aveone/playwright';
+import Browser from "../BaseUI/Browser";
 
 class BasePage {
     url: string;
