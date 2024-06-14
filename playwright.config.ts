@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   use: {
     browserName: 'chromium',
-    headless: false,
+    headless: true,
     baseURL: "https://www.alphabin.co/blog/system-integration-testing-a-complete-guide",
     trace: "on-first-retry",
     screenshot: 'only-on-failure'
