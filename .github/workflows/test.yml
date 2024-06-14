@@ -1,0 +1,36 @@
+name: Run Playwright tests
+
+on:
+  schedule:
+     - cron: '0 * * * *' # Run every hour
+  workflow_dispatch:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install browsers
+      run: npx playwright install
+
+    - name: Run Playwright tests
+      run: npx playwright test
+
+    - name: Archive Playwright report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: playwright-report
+        path: playwright-report/
