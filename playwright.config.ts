@@ -13,7 +13,7 @@ export default defineConfig({
   use: {
     browserName: 'chromium',
     headless: true,
-    baseURL: "https://www.alphabin.co/blog/system-integration-testing-a-complete-guide",
+    baseURL: "https://www.google.co.in/",
     trace: "on-first-retry",
     screenshot: 'only-on-failure'
   },
