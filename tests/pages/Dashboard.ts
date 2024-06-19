@@ -1,8 +1,11 @@
 import config from '../../playwright.config';
 import { expect, Page } from "@playwright/test";
-import { TextView, Button, SelectorType, TextInput } from '@aveone/playwright';
 import * as path from 'path';
 import Base from "./Base";
+import Button from "../BaseUI/Components/Button"
+import SelectorType from "../BaseUI/SelectorType";
+import TextInput from "../BaseUI/Components/TextView";
+
 
 const expectedErrorMessage: String = "Error: Oops! It seems like the street address for one or more records couldn't be verified. To ensure accurate processing, please double-check the address information or remove it and re-upload the file. Alternatively, you may click \"Proceed\" to continue with enrichment. Invalid addresses will include null values for enriched columns."
 
@@ -24,8 +27,20 @@ class Dashboard extends Base {
         await super.goTo(config.use?.baseURL);
     }
 
-    async verifyUserAbleToSearch(){
+    async verifyUserAbleToSearch() {
+        // Wait for the search input to appear and type the partial website URL
+        await new TextInput(this.page, SelectorType.XPATH, '[aria-label="Search"]').slowType('System Integration Testing complete guide');
+        // Submit the search
+        await this.page.keyboard.press('Enter');
+        await this.page.mouse.wheel(0, 0.5);
+        const elementHandle = this.page.locator('a[href*="blog/system-integration-testing-a-complete-guide"]');
+        await this.browser.delay(2000);
+        await elementHandle.scrollIntoViewIfNeeded();
+        await this.browser.delay(2000);
+        await elementHandle.click();
+        await this.browser.delay(2000);
         let pageCount = 5;
+        await this.browser.delay(2000);
 
         while (pageCount > 0) {
             //use the mouse to scroll down with the space bar
@@ -45,6 +60,6 @@ class Dashboard extends Base {
         }
     }
 
- }
+}
 
 export default Dashboard;  
